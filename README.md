@@ -87,4 +87,5 @@ elección)
 La App esta diseñada para que se cree y se resetee cada vez que se ejecuta.
 
 Login: 37093729 pass: 37093729 (usuario Admin)
+
 login: 29790127 pass: 29790127 (usuario User)
