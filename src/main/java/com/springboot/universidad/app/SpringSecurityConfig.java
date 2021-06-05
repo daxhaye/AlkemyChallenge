@@ -14,41 +14,41 @@ import com.springboot.universidad.app.services.JPAUserDetailsService;
 
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @Configuration
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
-	
-	@Autowired
-	private LoginSuccessHandler successHandler;
-	
-	@Autowired
-	private JPAUserDetailsService userDetailsService;
-	
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/listar").permitAll()
-		.anyRequest().authenticated()
-		.and()
-			.formLogin()
-				.successHandler(successHandler)
-				.loginPage("/login")
-		.permitAll()
-		.and()
-		.logout().permitAll()
-		.and()
-		.exceptionHandling()
-		.accessDeniedPage("/error_403");
-		
-		
-	}
-	
-	@Autowired
-	public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception {
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-		builder.userDetailsService(userDetailsService)
-		.passwordEncoder(passwordEncoder);
-		
-	}
+    @Autowired
+    private LoginSuccessHandler successHandler;
+
+    @Autowired
+    private JPAUserDetailsService userDetailsService;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/", "/css/**", "/js/**", "/images/**", "/listar").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .successHandler(successHandler)
+                .loginPage("/login")
+                .permitAll()
+                .and()
+                .logout().permitAll()
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/error_403");
+
+
+    }
+
+    @Autowired
+    public void configurerGlobal(AuthenticationManagerBuilder builder) throws Exception {
+
+        builder.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder);
+
+    }
 
 }

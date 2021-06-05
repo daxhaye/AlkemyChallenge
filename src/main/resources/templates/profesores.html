@@ -3,34 +3,35 @@
 <head th:replace="layout/Layout :: head"></head>
 <body>
 
-	<header th:replace="layout/Layout :: header"></header>
+<header th:replace="layout/Layout :: header"></header>
 
-	<div class="container">
-		<h1 class="text-secondary border border-secondary" th:text="${title}"></h1>
+<div class="container">
+    <h1 class="text-secondary border border-secondary" th:text="${title}"></h1>
 
-		<table class="table table-bordered table-srited my-4">
-			<thead class="thead-dark">
-				<tr>
-				<th>Nombre</th>
-				<th>Apellido</th>
-				<th>Dni</th>
-				<th>Activo</th>
-				<th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="teacher: ${teacher}">
-					<td th:text="${teacher.name}"></td>
-					<td th:text="${teacher.lastname}"></td>
-					<td th:text="${teacher.dni}"></td>
-					<td th:text="${teacher.activo}"></td>
-					<td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/form/} + ${teacher.id}" class="btn btn-success btn-xs" th:text="'editar'"></a></td>
-				</tr>
-			</tbody>
-		</table>
+    <table class="table table-bordered table-srited my-4">
+        <thead class="thead-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Dni</th>
+            <th>Activo</th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="teacher: ${teacher}">
+            <td th:text="${teacher.name}"></td>
+            <td th:text="${teacher.lastname}"></td>
+            <td th:text="${teacher.dni}"></td>
+            <td th:text="${teacher.activo}"></td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/form/} + ${teacher.id}"
+                                                         class="btn btn-success btn-xs" th:text="'editar'"></a></td>
+        </tr>
+        </tbody>
+    </table>
 
 
-	</div>
-	<footer th:replace="layout/Layout :: footer"></footer>
+</div>
+<footer th:replace="layout/Layout :: footer"></footer>
 </body>
 </html>

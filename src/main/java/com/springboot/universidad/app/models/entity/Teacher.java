@@ -15,94 +15,92 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "teachers")
-public class Teacher implements Serializable{
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private int dni;
-	private String name;
-	private String lastname;
-	private boolean activo;
-	
-	@OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Subjects> materiasDadas;
-	
-	
-	
-	
-	public Teacher() {
-		this.materiasDadas = new ArrayList<Subjects>();
-	}
+public class Teacher implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private int dni;
+    private String name;
+    private String lastname;
+    private boolean activo;
+
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Subjects> materiasDadas;
 
 
-	public Long getId() {
-		return id;
-	}
+    public Teacher() {
+        this.materiasDadas = new ArrayList<Subjects>();
+    }
 
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
 
-	public int getDni() {
-		return dni;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 
-	public void setDni(int dni) {
-		this.dni = dni;
-	}
+    public int getDni() {
+        return dni;
+    }
 
 
-	public String getName() {
-		return name;
-	}
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
 
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
 
-	public String getLastname() {
-		return lastname;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
+    public String getLastname() {
+        return lastname;
+    }
 
 
-	public boolean isActivo() {
-		return activo;
-	}
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 
 
-	public void setActivo(boolean activo) {
-		this.activo = activo;
-	}
+    public boolean isActivo() {
+        return activo;
+    }
 
 
-	public List<Subjects> getMateriasDadas() {
-		return materiasDadas;
-	}
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
 
 
-	public void setMateriasDadas(List<Subjects> materiasDadas) {
-		this.materiasDadas = materiasDadas;
-	}
-	
-	public void addMateriasDadas(Subjects materia) {
-		this.materiasDadas.add(materia);
-	}
+    public List<Subjects> getMateriasDadas() {
+        return materiasDadas;
+    }
 
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    public void setMateriasDadas(List<Subjects> materiasDadas) {
+        this.materiasDadas = materiasDadas;
+    }
+
+    public void addMateriasDadas(Subjects materia) {
+        this.materiasDadas.add(materia);
+    }
+
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 }

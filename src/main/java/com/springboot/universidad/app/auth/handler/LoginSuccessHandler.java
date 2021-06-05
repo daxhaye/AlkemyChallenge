@@ -14,23 +14,22 @@ import org.springframework.web.servlet.support.SessionFlashMapManager;
 
 
 @Component
-public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
+public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
-		
-		SessionFlashMapManager flashMapManager = new SessionFlashMapManager();
-		
-		FlashMap flashMap = new FlashMap();
-		
-		flashMap.put("success", "Hola '" + authentication.getName() + "' haz iniciado sesión con éxito!");
-		
-		flashMapManager.saveOutputFlashMap(flashMap, request, response);
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                        Authentication authentication) throws IOException, ServletException {
 
-		super.onAuthenticationSuccess(request, response, authentication);
-	}
-	
-	
+        SessionFlashMapManager flashMapManager = new SessionFlashMapManager();
+
+        FlashMap flashMap = new FlashMap();
+
+        flashMap.put("success", "Hola '" + authentication.getName() + "' haz iniciado sesión con éxito!");
+
+        flashMapManager.saveOutputFlashMap(flashMap, request, response);
+
+        super.onAuthenticationSuccess(request, response, authentication);
+    }
+
 
 }

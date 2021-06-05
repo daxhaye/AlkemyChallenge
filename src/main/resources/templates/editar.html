@@ -3,69 +3,69 @@
 <head th:replace="layout/layout :: head"></head>
 <body>
 
-	<header th:replace="layout/layout :: header"></header>
+<header th:replace="layout/layout :: header"></header>
 
-	<div class="container py-4">
-		<div class="card bg-dark text-white ">
-			<div class="card-header" th:text="${title}"></div>
-			<div class="card-body">
-
-
-				<form th:action="@{/editar}" th:object="${subject}" method="post"
-					enctype="multipart/form-data">
-					<div class="form-group">
-						<label class="col-sm-2 col-form-label">Nombre</label>
-						<div class="col-sm-6">
-							<input type="text" th:field="*{name}" class="form-control"
-								th:errorclass="'form-control alert-danger'" /> <small
-								class="form-text text-danger"
-								th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 col-form-label">Descripción</label>
-						<div class="col-sm-6">
-							<input type="text" th:field="*{descripcion}" class="form-control"
-								th:errorclass="'form-control alert-danger'" /> <small
-								class="form-text text-danger"
-								th:if="${#fields.hasErrors('descripcion')}"
-								th:errors="*{descripcion}"></small>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 col-form-label">Horario</label>
-						<div class="col-sm-6">
-							<input type="time" th:field="*{horario}" class="form-control"
-								th:errorclass="'form-control alert-danger'" /> <small
-								class="form-text text-danger"
-								th:if="${#fields.hasErrors('horario')}" th:errors="*{horario}"></small>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-2 col-form-label">Cupo De Alumnos</label>
-						<div class="col-sm-6">
-							<input type="number" th:field="*{cupAlumn}" class="form-control"
-								th:errorclass="'form-control alert-danger'" /> <small
-								class="form-text text-danger"
-								th:if="${#fields.hasErrors('cupAlumn')}"
-								th:errors="*{cupAlumn}"></small>
-						</div>
-					</div>
-
-					<div class="form-group py-2">
-						<div class="col-sm-6">
-							<input type="submit" value="Submit"
-								class="btn btn-secondary" />
-						</div>
-					</div>
-
-					<input type="hidden" th:field="*{id}" />
+<div class="container py-4">
+    <div class="card bg-dark text-white ">
+        <div class="card-header" th:text="${title}"></div>
+        <div class="card-body">
 
 
-				</form>
-			</div>
-		</div>
-	</div>
-	<footer th:replace="layout/layout :: footer"></footer>
+            <form th:action="@{/editar}" th:object="${subject}" method="post"
+                  enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-6">
+                        <input type="text" th:field="*{name}" class="form-control"
+                               th:errorclass="'form-control alert-danger'"/> <small
+                            class="form-text text-danger"
+                            th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-form-label">Descripciï¿½n</label>
+                    <div class="col-sm-6">
+                        <input type="text" th:field="*{descripcion}" class="form-control"
+                               th:errorclass="'form-control alert-danger'"/> <small
+                            class="form-text text-danger"
+                            th:if="${#fields.hasErrors('descripcion')}"
+                            th:errors="*{descripcion}"></small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-form-label">Horario</label>
+                    <div class="col-sm-6">
+                        <input type="time" th:field="*{horario}" class="form-control"
+                               th:errorclass="'form-control alert-danger'"/> <small
+                            class="form-text text-danger"
+                            th:if="${#fields.hasErrors('horario')}" th:errors="*{horario}"></small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-form-label">Cupo De Alumnos</label>
+                    <div class="col-sm-6">
+                        <input type="number" th:field="*{cupAlumn}" class="form-control"
+                               th:errorclass="'form-control alert-danger'"/> <small
+                            class="form-text text-danger"
+                            th:if="${#fields.hasErrors('cupAlumn')}"
+                            th:errors="*{cupAlumn}"></small>
+                    </div>
+                </div>
+
+                <div class="form-group py-2">
+                    <div class="col-sm-6">
+                        <input type="submit" value="Submit"
+                               class="btn btn-secondary"/>
+                    </div>
+                </div>
+
+                <input type="hidden" th:field="*{id}"/>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+<footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>

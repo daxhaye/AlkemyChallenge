@@ -19,48 +19,55 @@ import com.springboot.universidad.app.models.services.ITeacherServices;
 
 @Controller
 public class TeacherController {
-	
-	@Autowired
-	private ITeacherServices teacherServices;
-	
-	@Secured("ROLE_USER")
-	@GetMapping("/profesores")
-	public String listar(Model model) {
-		model.addAttribute("title", "Listado de Profesores");
-		model.addAttribute("teacher", teacherServices.findAll());
-		
-		return "profesores";
-	}
-	
-	@Secured("ROLE_ADMIN")
-	@GetMapping("/form/{id}")
-	public String editar(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
-		Teacher teacher = null;
-		
-		if(id > 0) {
-			teacher = teacherServices.findOne(id);
-			if (teacher == null) {
-				flash.addFlashAttribute("error", "El Id del Profesor no existe en la BBDD!");
-				return "redirect:/profesores";
-			}
-		} else {
-			flash.addFlashAttribute("error", "El Id del profesor no puede ser cero!");
-			return "redirect:/profesores";
-		}
 
-		model.addAttribute("teacher", teacher);
-		model.addAttribute("title", "Editar cliente");
-		return "form";
-	}
-	
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value = "/form",method = RequestMethod.POST)
-	public String guardar(@Valid Teacher teacher, Model model, RedirectAttributes flash, SessionStatus status) {
-		
-		teacherServices.save(teacher);
-		status.setComplete();
-		flash.addFlashAttribute("success", "Editado con éxito");
-		return "redirect:/profesores";
-	}
+    private final static String TITLE = "title";
+    private final static String TEACHER = "teacher";
+
+    private final static String ERROR = "error";
+    private final static String SUCCESS = "success";
+
+    @Autowired
+    private ITeacherServices teacherServices;
+
+    @Secured("ROLE_USER")
+    @GetMapping("/profesores")
+    public String listar(Model model) {
+        model.addAttribute(TITLE, "Listado de Profesores");
+        model.addAttribute(TEACHER, teacherServices.findAll());
+
+        return "profesores";
+    }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/form/{id}")
+    public String editar(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
+        Teacher teacher;
+
+        if (id <= 0) {
+            flash.addFlashAttribute(ERROR, "El Id del profesor no puede ser cero!");
+            return "redirect:/profesores";
+        }
+
+
+        teacher = teacherServices.findOne(id);
+        if (teacher == null) {
+            flash.addFlashAttribute(ERROR, "El Id del Profesor no existe en la BBDD!");
+            return "redirect:/profesores";
+        }
+
+        model.addAttribute(TEACHER, teacher);
+        model.addAttribute(TITLE, "Editar cliente");
+        return "form";
+    }
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/form", method = RequestMethod.POST)
+    public String guardar(@Valid Teacher teacher, Model model, RedirectAttributes flash, SessionStatus status) {
+
+        teacherServices.save(teacher);
+        status.setComplete();
+        flash.addFlashAttribute(SUCCESS, "Editado con éxito");
+        return "redirect:/profesores";
+    }
 
 }

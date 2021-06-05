@@ -3,27 +3,27 @@
 <head th:replace="layout/Layout :: head"></head>
 <body>
 
-	<header th:replace="layout/Layout :: header"></header>
+<header th:replace="layout/Layout :: header"></header>
 
-	<div class="container">
-		<h1 class="text-secondary border border-secondary" th:text="${title}"></h1>
+<div class="container">
+    <h1 class="text-secondary border border-secondary" th:text="${title}"></h1>
 
-		<table>
-			<thead>
-				<tr>
-				<th th:text="${titulo}">Listado de Materias</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="subject: ${subjects}">
-					<td th:text="${subject.name}"></td>
-					<td><a th:href="@{/ver/} + ${subject.id}" class="btn btn-success" th:text="'ver'"></a></td>
-				</tr>
-			</tbody>
-		</table>
+    <table>
+        <thead>
+        <tr>
+            <th th:text="${titulo}">Listado de Materias</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="subject: ${subjects}">
+            <td th:text="${subject.name}"></td>
+            <td><a th:href="@{/ver/} + ${subject.id}" class="btn btn-success" th:text="'ver'"></a></td>
+        </tr>
+        </tbody>
+    </table>
 
 
-	</div>
-	<footer th:replace="layout/Layout :: footer"></footer>
+</div>
+<footer th:replace="layout/Layout :: footer"></footer>
 </body>
 </html>

@@ -15,43 +15,66 @@ import com.springboot.universidad.app.models.entity.Subjects;
 
 @Controller
 public class StudentController {
-	
-	@Autowired
-	private ISubjectsDao subjectDao;
-	
-	@Autowired
-	private IStudentDao studentDao;
-	
-	@GetMapping("/inscribirse/{id}")
-	public String inscribirse(@PathVariable(value = "id") int id, RedirectAttributes flash, Principal principal) {
-		Student alumno = null;
-		
-		if(principal != null) {
-			alumno = studentDao.findByUsername(principal.getName());
-			
-			Subjects materia = null;
-			if (id>0) {
-				materia = subjectDao.findOne(id);
-				if(!alumno.getMaterias().contains(materia) && materia.getCupAlumn() > 0) {
-					materia.decCupAlumn();
-					alumno.addMaterias(materia);
-					studentDao.save(alumno);
-					subjectDao.save(materia);
-					flash.addFlashAttribute("success", "Te inscribiste a " + materia.getName() + " correctamente!");
-				} else {
-					String mensajeFlash = (alumno.getMaterias().contains(materia)) ? "Ya estas inscripto en la materia" : "Cupo lleno";
-					flash.addFlashAttribute("error", mensajeFlash);
-				}
-			} else {
-				flash.addFlashAttribute("Error", "El Id no puede ser 0");
-			}
-					
-		} else {
-			flash.addFlashAttribute("error", "No ha iniciado Sesión");
-		}
-		
-		
-		return "redirect:/ver/" + id;
-	}
+
+    private final static String ERROR = "error";
+    private final static String SUCCESS = "success";
+
+    @Autowired
+    private ISubjectsDao subjectDao;
+
+    @Autowired
+    private IStudentDao studentDao;
+
+    @GetMapping("/inscribirse/{id}")
+    public String inscribirse(@PathVariable(value = "id") int id, RedirectAttributes flash, Principal principal) {
+        String result = "redirect:/ver/" + id;
+
+        Student alumno;
+
+        if (principal == null) {
+            flash.addFlashAttribute(ERROR, "No ha iniciado sesión");
+
+            return result;
+        }
+
+        alumno = studentDao.findByUsername(principal.getName());
+
+        Subjects materia;
+        if (id <= 0) {
+            flash.addFlashAttribute(ERROR, "Id incorrecto");
+
+            return result;
+        }
+
+        materia = subjectDao.findOne(id);
+
+        if (materia == null) {
+            flash.addFlashAttribute(ERROR, "La materia no existe");
+
+            return result;
+        }
+
+        if (alumno.getMaterias().contains(materia)) {
+            flash.addFlashAttribute(ERROR, String.format("Ya estas inscripto en la materia %s", materia.getName()));
+
+            return result;
+        }
+
+        if (materia.getCupAlumn() == 0) {
+            flash.addFlashAttribute(ERROR, "Cupo lleno");
+
+            return result;
+        }
+
+
+        materia.decCupAlumn();
+        alumno.addMaterias(materia);
+        studentDao.save(alumno);
+        subjectDao.save(materia);
+        flash.addFlashAttribute(SUCCESS, String.format("Te inscribiste a %s correctamente!", materia.getName()));
+
+
+        return result;
+    }
 
 }

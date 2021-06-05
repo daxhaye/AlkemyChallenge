@@ -13,31 +13,31 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "authorities", uniqueConstraints = {@UniqueConstraint(columnNames = {"student_id", "authority"})})
 public class Role implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String authority;
+    private String authority;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getAuthority() {
-		return authority;
-	}
+    public String getAuthority() {
+        return authority;
+    }
 
-	public void setAuthority(String authority) {
-		this.authority = authority;
-	}
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
 }

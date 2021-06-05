@@ -20,60 +20,69 @@ import com.springboot.universidad.app.models.entity.Subjects;
 
 @Controller
 public class SubjectsController {
-	
-	@Autowired
-	private ISubjectsDao subjectDao;
-	
-	@Secured("ROLE_USER")
-	@GetMapping({"/listar", "/"})
-	public String listar(Model model) {
-		
-		model.addAttribute("title", "Listado de Materias: ");
-		model.addAttribute("subjects", subjectDao.findAll());
-		
-		return "listar";
-	}
-	
-	@Secured("ROLE_USER")
-	@GetMapping("/ver/{id}")
-	public String ver(@PathVariable(value = "id") int id, Model model) {
-		
-		Subjects subject = null;
-		
-		if(id>0) {
-			subject = subjectDao.findOne(id);
-		} else {
-			return "redirect:/listar";
-		}
-		
-		model.addAttribute("title", "Detalle materia");
-		model.addAttribute("subjects", subject);
-		
-		
-		return "ver";
-	}
-	
-	@Secured("ROLE_ADMIN")
-	@GetMapping("/editar/{id}")
-	public String editar(@PathVariable(value = "id") int id, Model model) {
-		Subjects subject = null;
-		
-		if(id > 0) {
-			subject = subjectDao.findOne(id);
-			
-			model.addAttribute("title", "Formulario de Materia");
-			model.addAttribute("subject", subjectDao.findOne(id));
-		}
-		
-		return "editar";
-	}
 
-	@Secured("ROLE_ADMIN")
-	@PostMapping("/editar")
-	public String guardar(@Valid Subjects subject, RedirectAttributes flash) {
-		subjectDao.save(subject);
-		flash.addFlashAttribute("success", "Editado con éxito");		
-		
-		return "redirect:/ver/" + subject.getId();
-	}
+    private final static String TITLE = "title";
+    private final static String SUBJECTS = "subjects";
+
+    private final static String SUCCESS = "success";
+
+    @Autowired
+    private ISubjectsDao subjectDao;
+
+    @Secured("ROLE_USER")
+    @GetMapping({"/listar", "/"})
+    public String listar(Model model) {
+
+        model.addAttribute(TITLE, "Listado de Materias: ");
+        model.addAttribute(SUBJECTS, subjectDao.findAll());
+
+        return "listar";
+    }
+
+    @Secured("ROLE_USER")
+    @GetMapping("/ver/{id}")
+    public String ver(@PathVariable(value = "id") int id, Model model) {
+
+        Subjects subject;
+
+        if (id <= 0) {
+            return "redirect:/listar";
+        }
+
+        subject = subjectDao.findOne(id);
+
+        model.addAttribute(TITLE, "Detalle materia");
+        model.addAttribute(SUBJECTS, subject);
+
+        return "ver";
+    }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable(value = "id") int id, Model model) {
+        Subjects subject;
+
+        if (id <= 0) {
+            return "redirect:/listar";
+        }
+
+        subject = subjectDao.findOne(id);
+        if (subject == null) {
+            return "redirect:/listar";
+        }
+
+        model.addAttribute(TITLE, "Formulario de Materia");
+        model.addAttribute(SUBJECTS, subjectDao.findOne(id));
+
+        return "editar";
+    }
+
+    @Secured("ROLE_ADMIN")
+    @PostMapping("/editar")
+    public String guardar(@Valid Subjects subject, RedirectAttributes flash) {
+        subjectDao.save(subject);
+        flash.addFlashAttribute(SUCCESS, "Editado con éxito");
+
+        return "redirect:/ver/" + subject.getId();
+    }
 }
