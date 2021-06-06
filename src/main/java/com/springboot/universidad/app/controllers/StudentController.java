@@ -60,6 +60,13 @@ public class StudentController {
             return result;
         }
 
+        //if para no inscribirse a dos materias en el mismo horario
+        if(alumno.getHorario().contains(materia.getHorario())) {
+            flash.addFlashAttribute(ERROR, "No puedes inscribirte a dos materias en el mismo horario");
+
+            return result;
+        }
+
         if (materia.getCupAlumn() == 0) {
             flash.addFlashAttribute(ERROR, "Cupo lleno");
 

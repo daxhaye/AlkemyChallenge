@@ -2,6 +2,7 @@ package com.springboot.universidad.app.models.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -113,6 +114,17 @@ public class Student implements Serializable {
 
     public void addMaterias(Subjects subject) {
         this.materias.add(subject);
+    }
+
+    //Genero una lista de horarios.
+    public List<Date> getHorario() {
+        List<Date> horarios = new ArrayList<Date>();
+
+        for (Subjects subject : this.materias) {
+            horarios.add(subject.getHorario());
+        }
+
+        return horarios;
     }
 
 
