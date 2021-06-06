@@ -12,6 +12,7 @@
         <tr>
             <th>Materia</th>
             <th>Descripcion</th>
+            <th>Profesor</th>
             <th>Horario</th>
             <th>Cupo de Alumnos</th>
             <th>Inscripciones</th>
@@ -22,6 +23,7 @@
         <tr>
             <td th:text="${subjects.name}"></td>
             <td th:text="${subjects.descripcion}"></td>
+            <td th:text="${subjects.teacher.getName()} + ' ' + ${subjects.teacher.getLastname()}"></td>
             <td th:text="${subjects.horario}"></td>
             <td th:text="${subjects.cupAlumn}"></td>
             <td><a class="btn btn-success btn-xs" th:href="@{/inscribirse/} + ${subjects.id}" th:text="Inscribirse"></a>

@@ -25,6 +25,7 @@ public class SubjectsController {
     private final static String SUBJECTS = "subjects";
 
     private final static String SUCCESS = "success";
+    private final static String ERROR = "error";
 
     @Autowired
     private ISubjectsDao subjectDao;
@@ -80,6 +81,13 @@ public class SubjectsController {
     @Secured("ROLE_ADMIN")
     @PostMapping("/editar")
     public String guardar(@Valid Subjects subject, RedirectAttributes flash) {
+
+        //Evitando que pongan un id del profesor incorrecto
+        if(subject.getTeacher() == null) {
+            flash.addFlashAttribute(ERROR, "Id del profesor incorecto");
+            return "redirect:/ver/" + subject.getId();
+        }
+
         subjectDao.save(subject);
         flash.addFlashAttribute(SUCCESS, "Editado con éxito");
 

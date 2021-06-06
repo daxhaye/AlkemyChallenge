@@ -11,7 +11,7 @@
         <div class="card-body">
 
 
-            <form th:action="@{/editar}" th:object="${subject}" method="post"
+            <form th:action="@{/editar}" th:object="${subjects}" method="post"
                   enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="col-sm-2 col-form-label">Nombre</label>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-form-label">Descripci�n</label>
+                    <label class="col-sm-2 col-form-label">Descripcion</label>
                     <div class="col-sm-6">
                         <input type="text" th:field="*{descripcion}" class="form-control"
                                th:errorclass="'form-control alert-danger'"/> <small
@@ -49,6 +49,16 @@
                             class="form-text text-danger"
                             th:if="${#fields.hasErrors('cupAlumn')}"
                             th:errors="*{cupAlumn}"></small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-form-label">Profesor</label>
+                    <div class="col-sm-6">
+                        <input type="text" th:field="*{teacher}" class="form-control"
+                               th:errorclass="'form-control alert-danger'"/> <small
+                            class="form-text text-danger"
+                            th:if="${#fields.hasErrors('teacher')}"
+                            th:errors="*{teacher}"></small>
                     </div>
                 </div>
 

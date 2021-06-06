@@ -70,6 +70,8 @@ public class StudentController {
         materia.decCupAlumn();
         alumno.addMaterias(materia);
         studentDao.save(alumno);
+
+        //Guardo tambien la materia para que impacte el cupAlumn--
         subjectDao.save(materia);
         flash.addFlashAttribute(SUCCESS, String.format("Te inscribiste a %s correctamente!", materia.getName()));
 
